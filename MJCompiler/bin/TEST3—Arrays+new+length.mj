@@ -1,0 +1,12 @@
+program Test3
+{
+    void main()
+    {
+        int[] arr;
+        int x;
+
+        arr = new int[10];
+        x = arr.length;
+        arr[3] = 5;
+    }
+}

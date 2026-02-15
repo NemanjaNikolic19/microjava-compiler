@@ -1,0 +1,16 @@
+INFO  21:26:28,058 - Compiling source file: C:\Data\Skola\Semestar 7\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\TEST2—Relational+Ternary.mj
+INFO  21:26:28,087 - #2 program
+INFO  21:26:28,087 - #39 Test2
+INFO  21:26:28,087 - #3 {
+INFO  21:26:28,088 - #35 void
+INFO  21:26:28,088 - #39 main
+INFO  21:26:28,089 - #6 (
+INFO  21:26:28,089 - #7 )
+INFO  21:26:28,090 - #3 {
+INFO  21:26:28,090 - #39 int
+INFO  21:26:28,090 - #39 a
+ERROR 21:26:28,090 - 
+Sintaksna greska na liniji 5
+ERROR 21:26:28,091 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 5
+INFO  21:26:28,095 - Print calls = 0
+ERROR 21:26:28,095 - Parsiranje NIJE uspesno zavrseno!

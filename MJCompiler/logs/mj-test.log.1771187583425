@@ -1,0 +1,16 @@
+INFO  21:30:25,073 - Compiling source file: C:\Data\Skola\Semestar 7\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\TEST1—BasicArithmetic+Unary.mj
+INFO  21:30:25,100 - #2 program
+INFO  21:30:25,100 - #39 Test1
+INFO  21:30:25,100 - #3 {
+INFO  21:30:25,101 - #35 void
+INFO  21:30:25,102 - #39 main
+INFO  21:30:25,102 - #6 (
+INFO  21:30:25,103 - #7 )
+INFO  21:30:25,103 - #3 {
+INFO  21:30:25,103 - #39 int
+INFO  21:30:25,104 - #39 a
+ERROR 21:30:25,104 - 
+Sintaksna greska na liniji 5
+ERROR 21:30:25,104 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 5
+INFO  21:30:25,108 - Print calls = 0
+ERROR 21:30:25,108 - Parsiranje NIJE uspesno zavrseno!

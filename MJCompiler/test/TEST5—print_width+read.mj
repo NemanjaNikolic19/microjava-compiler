@@ -1,0 +1,10 @@
+program Test5
+{
+    void main()
+    {
+        int a;
+        read(a);
+        print(a);
+        print(a, 5);
+    }
+}

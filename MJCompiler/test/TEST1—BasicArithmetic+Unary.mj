@@ -1,0 +1,9 @@
+program Test1
+	int a;
+{
+	void main(){
+		a = -5;
+		a = -(3 + 2);
+		a = 3 + 4 * 2;
+	}
+}
