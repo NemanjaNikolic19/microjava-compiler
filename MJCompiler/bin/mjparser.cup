@@ -93,7 +93,9 @@ VarDeclList ::= (VarDeclarations) VarDeclList VarDecl
 				(NoVarDecl)/* epsilon */ 
 				;
 				
-VarDecl ::= (VarDecl) Type:varType IDENT:varName SEMI 
+VarDecl ::= (SimpleVarDecl) Type:varType IDENT:varName SEMI 
+          |
+          (ArrayVarDecl) Type:varType IDENT:varName LBRACKET RBRACKET SEMI
           |
           (ErrVarDeclSemi) Type:errorType error SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ';'."); :}
@@ -132,7 +134,7 @@ StatementList ::= (Statements) StatementList Statement
 
 Statement ::= (MatchedStmt) Matched | (UnmachedStmt) Unmatched ;
 
-Unmatched ::= (UnmatchedIf) IF Expr Statement | (UnmatchedIfElse) IF Expr Matched ELSE Unmatched;
+Unmatched ::= (UnmatchedIf) IF LPAREN Expr RPAREN Statement | (UnmatchedIfElse) IF LPAREN Expr RPAREN Matched ELSE Unmatched;
 	
 				  
 Matched ::= (Assignment) Designator:dest EQUAL Expr:e SEMI
@@ -154,7 +156,7 @@ Matched ::= (Assignment) Designator:dest EQUAL Expr:e SEMI
           |
           (DecStmt) Designator DEC SEMI
           |
-          (MatchedIf) IF Expr Matched ELSE Matched
+          (MatchedIf) IF LPAREN Expr RPAREN Matched ELSE Matched
           |
           (ProcCall) Designator LPAREN ActualPars RPAREN SEMI
           ;
