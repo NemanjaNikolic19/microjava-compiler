@@ -5,19 +5,15 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class MethodTypeName implements SyntaxNode {
-
-    private SyntaxNode parent;
-    private int line;
-    public rs.etf.pp1.symboltable.concepts.Obj obj = null;
+public class ArrayVarDecl extends VarDecl {
 
     private Type Type;
-    private String methName;
+    private String varName;
 
-    public MethodTypeName (Type Type, String methName) {
+    public ArrayVarDecl (Type Type, String varName) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.methName=methName;
+        this.varName=varName;
     }
 
     public Type getType() {
@@ -28,28 +24,12 @@ public class MethodTypeName implements SyntaxNode {
         this.Type=Type;
     }
 
-    public String getMethName() {
-        return methName;
+    public String getVarName() {
+        return varName;
     }
 
-    public void setMethName(String methName) {
-        this.methName=methName;
-    }
-
-    public SyntaxNode getParent() {
-        return parent;
-    }
-
-    public void setParent(SyntaxNode parent) {
-        this.parent=parent;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public void setLine(int line) {
-        this.line=line;
+    public void setVarName(String varName) {
+        this.varName=varName;
     }
 
     public void accept(Visitor visitor) {
@@ -73,7 +53,7 @@ public class MethodTypeName implements SyntaxNode {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("MethodTypeName(\n");
+        buffer.append("ArrayVarDecl(\n");
 
         if(Type!=null)
             buffer.append(Type.toString("  "+tab));
@@ -81,11 +61,11 @@ public class MethodTypeName implements SyntaxNode {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+methName);
+        buffer.append(" "+tab+varName);
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [MethodTypeName]");
+        buffer.append(") [ArrayVarDecl]");
         return buffer.toString();
     }
 }
