@@ -94,6 +94,12 @@ VarDeclList ::= (VarDeclarations) VarDeclList VarDecl
 				;
 				
 VarDecl ::= (VarDecl) Type:varType IDENT:varName SEMI 
+          |
+          (ErrVarDeclSemi) Type:errorType error SEMI
+          {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ';'."); :}
+          |
+          (ErrVarDeclComma) Type:errorType error COMMA IDENT:nextVar SEMI
+          {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ','."); :}
 ;
 
 Type ::= (ActualType) IDENT

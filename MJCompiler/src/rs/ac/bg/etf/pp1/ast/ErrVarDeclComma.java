@@ -5,17 +5,15 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class VarDecl implements SyntaxNode {
+public class ErrVarDeclComma extends VarDecl {
 
-    private SyntaxNode parent;
-    private int line;
     private Type Type;
-    private String varName;
+    private String nextVar;
 
-    public VarDecl (Type Type, String varName) {
+    public ErrVarDeclComma (Type Type, String nextVar) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.varName=varName;
+        this.nextVar=nextVar;
     }
 
     public Type getType() {
@@ -26,28 +24,12 @@ public class VarDecl implements SyntaxNode {
         this.Type=Type;
     }
 
-    public String getVarName() {
-        return varName;
+    public String getNextVar() {
+        return nextVar;
     }
 
-    public void setVarName(String varName) {
-        this.varName=varName;
-    }
-
-    public SyntaxNode getParent() {
-        return parent;
-    }
-
-    public void setParent(SyntaxNode parent) {
-        this.parent=parent;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public void setLine(int line) {
-        this.line=line;
+    public void setNextVar(String nextVar) {
+        this.nextVar=nextVar;
     }
 
     public void accept(Visitor visitor) {
@@ -71,7 +53,7 @@ public class VarDecl implements SyntaxNode {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("VarDecl(\n");
+        buffer.append("ErrVarDeclComma(\n");
 
         if(Type!=null)
             buffer.append(Type.toString("  "+tab));
@@ -79,11 +61,11 @@ public class VarDecl implements SyntaxNode {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+varName);
+        buffer.append(" "+tab+nextVar);
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [VarDecl]");
+        buffer.append(") [ErrVarDeclComma]");
         return buffer.toString();
     }
 }
