@@ -34,6 +34,8 @@ import java_cup.runtime.Symbol;
 "\b" 	{ }
 "\t" 	{ }
 "\r\n" 	{ }
+"\n"   { }
+"\r"   { }
 "\f" 	{ }
 
 /* Keywords-------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -95,6 +97,8 @@ import java_cup.runtime.Symbol;
 <YYINITIAL> "//"	{ yybegin(COMMENT); }
 <COMMENT> .       	{ yybegin(COMMENT); }
 <COMMENT> "\r\n"   	{ yybegin(YYINITIAL); }
+<COMMENT> "\n"      { yybegin(YYINITIAL); }
+<COMMENT> "\r"      { yybegin(YYINITIAL); }
 
 /* Constants-----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -113,7 +117,6 @@ import java_cup.runtime.Symbol;
 
 /* Error--------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-. { 
-    System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); 
+. {
+    System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)+", kolona "+(yycolumn+1));
 }
-
