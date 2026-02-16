@@ -103,7 +103,9 @@ VarDeclList ::= (VarDeclarations) VarDeclList:V1 VarDecl:V2 {: RESULT=new VarDec
 				(NoVarDecl) {: RESULT=new NoVarDecl(); :}/* epsilon */ 
 				;
 				
-VarDecl ::= (VarDecl) Type:varType IDENT:varName SEMI {: RESULT=new VarDecl(varType, varName); RESULT.setLine(varTypeleft); :} 
+VarDecl ::= (SimpleVarDecl) Type:varType IDENT:varName SEMI {: RESULT=new SimpleVarDecl(varType, varName); RESULT.setLine(varTypeleft); :} 
+          |
+          (ArrayVarDecl) Type:varType IDENT:varName LBRACKET RBRACKET SEMI {: RESULT=new ArrayVarDecl(varType, varName); RESULT.setLine(varTypeleft); :}
           |
           (ErrVarDeclSemi) Type:errorType error SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ';'."); :} {: RESULT=new ErrVarDeclSemi(errorType); RESULT.setLine(errorTypeleft); :}
@@ -142,7 +144,7 @@ StatementList ::= (Statements) StatementList:S1 Statement:S2 {: RESULT=new State
 
 Statement ::= (MatchedStmt) Matched:M1 {: RESULT=new MatchedStmt(M1); RESULT.setLine(M1left); :} | (UnmachedStmt) Unmatched:U1 {: RESULT=new UnmachedStmt(U1); RESULT.setLine(U1left); :} ;
 
-Unmatched ::= (UnmatchedIf) IF Expr:E1 Statement:S2 {: RESULT=new UnmatchedIf(E1, S2); RESULT.setLine(E1left); :} | (UnmatchedIfElse) IF Expr:E1 Matched:M2 ELSE Unmatched:U3 {: RESULT=new UnmatchedIfElse(E1, M2, U3); RESULT.setLine(E1left); :};
+Unmatched ::= (UnmatchedIf) IF LPAREN Expr:E1 RPAREN Statement:S2 {: RESULT=new UnmatchedIf(E1, S2); RESULT.setLine(E1left); :} | (UnmatchedIfElse) IF LPAREN Expr:E1 RPAREN Matched:M2 ELSE Unmatched:U3 {: RESULT=new UnmatchedIfElse(E1, M2, U3); RESULT.setLine(E1left); :};
 	
 				  
 Matched ::= (Assignment) Designator:dest EQUAL Expr:e SEMI {: RESULT=new Assignment(dest, e); RESULT.setLine(destleft); :}
@@ -164,7 +166,7 @@ Matched ::= (Assignment) Designator:dest EQUAL Expr:e SEMI {: RESULT=new Assignm
           |
           (DecStmt) Designator:D1 DEC SEMI {: RESULT=new DecStmt(D1); RESULT.setLine(D1left); :}
           |
-          (MatchedIf) IF Expr:E1 Matched:M2 ELSE Matched:M3 {: RESULT=new MatchedIf(E1, M2, M3); RESULT.setLine(E1left); :}
+          (MatchedIf) IF LPAREN Expr:E1 RPAREN Matched:M2 ELSE Matched:M3 {: RESULT=new MatchedIf(E1, M2, M3); RESULT.setLine(E1left); :}
           |
           (ProcCall) Designator:D1 LPAREN ActualPars:A2 RPAREN SEMI {: RESULT=new ProcCall(D1, A2); RESULT.setLine(D1left); :}
           ;
