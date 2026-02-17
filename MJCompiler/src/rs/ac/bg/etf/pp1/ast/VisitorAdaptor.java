@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/1/2026 20:43:29
+// 17/1/2026 11:36:40
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,8 +8,10 @@ package rs.ac.bg.etf.pp1.ast;
 public abstract class VisitorAdaptor implements Visitor { 
 
     public void visit(Designator Designator) { }
+    public void visit(VarDeclTail VarDeclTail) { }
     public void visit(RelExpr RelExpr) { }
     public void visit(Factor Factor) { }
+    public void visit(EnumItemList EnumItemList) { }
     public void visit(Mulop Mulop) { }
     public void visit(ActualParamList ActualParamList) { }
     public void visit(CondExpr CondExpr) { }
@@ -20,6 +22,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(VarDeclList VarDeclList) { }
     public void visit(VarDecl VarDecl) { }
     public void visit(AddExpr AddExpr) { }
+    public void visit(EnumItem EnumItem) { }
     public void visit(Unmatched Unmatched) { }
     public void visit(Addop Addop) { }
     public void visit(MethodDeclList MethodDeclList) { }
@@ -28,6 +31,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(Term Term) { }
     public void visit(StatementList StatementList) { }
     public void visit(Matched Matched) { }
+    public void visit(VarDeclTailItem VarDeclTailItem) { }
     public void visit(ActualPars ActualPars) { }
     public void visit(LengthDesignator LengthDesignator) { visit(); }
     public void visit(FieldDesignator FieldDesignator) { visit(); }
@@ -93,8 +97,22 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(MethodDeclarations MethodDeclarations) { visit(); }
     public void visit(VoidType VoidType) { visit(); }
     public void visit(ActualType ActualType) { visit(); }
+    public void visit(EnumItemAssigned EnumItemAssigned) { visit(); }
+    public void visit(EnumItemSimple EnumItemSimple) { visit(); }
+    public void visit(EnumItemListMany EnumItemListMany) { visit(); }
+    public void visit(EnumItemListSingle EnumItemListSingle) { visit(); }
+    public void visit(VarDeclTailArray VarDeclTailArray) { visit(); }
+    public void visit(VarDeclTailSimple VarDeclTailSimple) { visit(); }
+    public void visit(VarDeclTailList VarDeclTailList) { visit(); }
+    public void visit(VarDeclTailSingle VarDeclTailSingle) { visit(); }
     public void visit(ErrVarDeclComma ErrVarDeclComma) { visit(); }
     public void visit(ErrVarDeclSemi ErrVarDeclSemi) { visit(); }
+    public void visit(EnumDeclStmt EnumDeclStmt) { visit(); }
+    public void visit(ConstDeclBool ConstDeclBool) { visit(); }
+    public void visit(ConstDeclChar ConstDeclChar) { visit(); }
+    public void visit(ConstDeclNum ConstDeclNum) { visit(); }
+    public void visit(MultiArrayVarDecl MultiArrayVarDecl) { visit(); }
+    public void visit(MultiVarDecl MultiVarDecl) { visit(); }
     public void visit(ArrayVarDecl ArrayVarDecl) { visit(); }
     public void visit(SimpleVarDecl SimpleVarDecl) { visit(); }
     public void visit(NoVarDecl NoVarDecl) { visit(); }

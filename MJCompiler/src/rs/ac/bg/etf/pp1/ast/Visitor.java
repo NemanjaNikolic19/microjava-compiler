@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/1/2026 20:43:29
+// 17/1/2026 11:36:40
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,8 +8,10 @@ package rs.ac.bg.etf.pp1.ast;
 public interface Visitor { 
 
     public void visit(Designator Designator);
+    public void visit(VarDeclTail VarDeclTail);
     public void visit(RelExpr RelExpr);
     public void visit(Factor Factor);
+    public void visit(EnumItemList EnumItemList);
     public void visit(Mulop Mulop);
     public void visit(ActualParamList ActualParamList);
     public void visit(CondExpr CondExpr);
@@ -20,6 +22,7 @@ public interface Visitor {
     public void visit(VarDeclList VarDeclList);
     public void visit(VarDecl VarDecl);
     public void visit(AddExpr AddExpr);
+    public void visit(EnumItem EnumItem);
     public void visit(Unmatched Unmatched);
     public void visit(Addop Addop);
     public void visit(MethodDeclList MethodDeclList);
@@ -28,6 +31,7 @@ public interface Visitor {
     public void visit(Term Term);
     public void visit(StatementList StatementList);
     public void visit(Matched Matched);
+    public void visit(VarDeclTailItem VarDeclTailItem);
     public void visit(ActualPars ActualPars);
     public void visit(LengthDesignator LengthDesignator);
     public void visit(FieldDesignator FieldDesignator);
@@ -93,8 +97,22 @@ public interface Visitor {
     public void visit(MethodDeclarations MethodDeclarations);
     public void visit(VoidType VoidType);
     public void visit(ActualType ActualType);
+    public void visit(EnumItemAssigned EnumItemAssigned);
+    public void visit(EnumItemSimple EnumItemSimple);
+    public void visit(EnumItemListMany EnumItemListMany);
+    public void visit(EnumItemListSingle EnumItemListSingle);
+    public void visit(VarDeclTailArray VarDeclTailArray);
+    public void visit(VarDeclTailSimple VarDeclTailSimple);
+    public void visit(VarDeclTailList VarDeclTailList);
+    public void visit(VarDeclTailSingle VarDeclTailSingle);
     public void visit(ErrVarDeclComma ErrVarDeclComma);
     public void visit(ErrVarDeclSemi ErrVarDeclSemi);
+    public void visit(EnumDeclStmt EnumDeclStmt);
+    public void visit(ConstDeclBool ConstDeclBool);
+    public void visit(ConstDeclChar ConstDeclChar);
+    public void visit(ConstDeclNum ConstDeclNum);
+    public void visit(MultiArrayVarDecl MultiArrayVarDecl);
+    public void visit(MultiVarDecl MultiVarDecl);
     public void visit(ArrayVarDecl ArrayVarDecl);
     public void visit(SimpleVarDecl SimpleVarDecl);
     public void visit(NoVarDecl NoVarDecl);
