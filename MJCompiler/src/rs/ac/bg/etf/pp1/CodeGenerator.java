@@ -262,21 +262,21 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	@Override
 	public void visit(CondTernary condTernary) {
-		Code.store(SemanticPass.ternaryRightTmp);
-		Code.store(SemanticPass.ternaryLeftTmp);
-		Code.store(SemanticPass.ternaryCondTmp);
+		Code.store(SemanticAnalyzer.ternaryRightTmp);
+		Code.store(SemanticAnalyzer.ternaryLeftTmp);
+		Code.store(SemanticAnalyzer.ternaryCondTmp);
 
-		Code.load(SemanticPass.ternaryCondTmp);
+		Code.load(SemanticAnalyzer.ternaryCondTmp);
 		Code.loadConst(0);
 		Code.putFalseJump(Code.ne, 0);
 		int falsePatch = Code.pc - 2;
 
-		Code.load(SemanticPass.ternaryLeftTmp);
+		Code.load(SemanticAnalyzer.ternaryLeftTmp);
 		Code.putJump(0);
 		int endPatch = Code.pc - 2;
 
 		Code.fixup(falsePatch);
-		Code.load(SemanticPass.ternaryRightTmp);
+		Code.load(SemanticAnalyzer.ternaryRightTmp);
 		Code.fixup(endPatch);
 	}
 }
