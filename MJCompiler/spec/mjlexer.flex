@@ -41,6 +41,8 @@ import java_cup.runtime.Symbol;
 /* Keywords-------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 "program"  	{ return new_symbol(sym.PROG, yytext()); }
+"const"    	{ return new_symbol(sym.CONST, yytext()); }
+"enum"     	{ return new_symbol(sym.ENUM, yytext()); }
 "print"    	{ return new_symbol(sym.PRINT, yytext()); }
 "read"     	{ return new_symbol(sym.READ, yytext()); }
 "return"   	{ return new_symbol(sym.RETURN, yytext()); }

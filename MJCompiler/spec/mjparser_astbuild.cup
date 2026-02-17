@@ -54,7 +54,7 @@ scan with {:
 :}
 
 
-terminal PROG, LBRACE, RBRACE, SEMI, LPAREN, RPAREN, COMMA;
+terminal PROG, CONST, ENUM, LBRACE, RBRACE, SEMI, LPAREN, RPAREN, COMMA;
 terminal PRINT, READ, RETURN;
 terminal PLUS, MINUS, MUL, DIV, MOD;
 terminal GT, GE, LT, LE, EQ, NE;
@@ -76,6 +76,10 @@ terminal String IDENT ;
 
 nonterminal MethodDeclList MethodDeclList;
 nonterminal VarDecl VarDecl;
+nonterminal VarDeclTail VarDeclTail;
+nonterminal VarDeclTailItem VarDeclTailItem;
+nonterminal EnumItemList EnumItemList;
+nonterminal EnumItem EnumItem;
 nonterminal FormalParamList FormalParamList;
 nonterminal FormalParamDecl FormalParamDecl;
 nonterminal FormPars FormPars;
@@ -107,12 +111,44 @@ VarDecl ::= (SimpleVarDecl) Type:varType IDENT:varName SEMI {: RESULT=new Simple
           |
           (ArrayVarDecl) Type:varType IDENT:varName LBRACKET RBRACKET SEMI {: RESULT=new ArrayVarDecl(varType, varName); RESULT.setLine(varTypeleft); :}
           |
+          (MultiVarDecl) Type:varType IDENT:firstName COMMA VarDeclTail:V1 SEMI {: RESULT=new MultiVarDecl(varType, firstName, V1); RESULT.setLine(varTypeleft); :}
+          |
+          (MultiArrayVarDecl) Type:varType IDENT:firstName LBRACKET RBRACKET COMMA VarDeclTail:V1 SEMI {: RESULT=new MultiArrayVarDecl(varType, firstName, V1); RESULT.setLine(varTypeleft); :}
+          |
+          (ConstDeclNum) CONST Type:constType IDENT:constName EQUAL NUMBER:N1 SEMI {: RESULT=new ConstDeclNum(constType, constName, N1); RESULT.setLine(constTypeleft); :}
+          |
+          (ConstDeclChar) CONST Type:constType IDENT:constName EQUAL CHARCONST:C1 SEMI {: RESULT=new ConstDeclChar(constType, constName, C1); RESULT.setLine(constTypeleft); :}
+          |
+          (ConstDeclBool) CONST Type:constType IDENT:constName EQUAL BOOLCONST:B1 SEMI {: RESULT=new ConstDeclBool(constType, constName, B1); RESULT.setLine(constTypeleft); :}
+          |
+          (EnumDeclStmt) ENUM IDENT:enumName LBRACE EnumItemList:E1 RBRACE {: RESULT=new EnumDeclStmt(enumName, E1); RESULT.setLine(enumNameleft); :}
+          |
           (ErrVarDeclSemi) Type:errorType error SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ';'."); :} {: RESULT=new ErrVarDeclSemi(errorType); RESULT.setLine(errorTypeleft); :}
           |
           (ErrVarDeclComma) Type:errorType error COMMA IDENT:nextVar SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ','."); :} {: RESULT=new ErrVarDeclComma(errorType, nextVar); RESULT.setLine(errorTypeleft); :}
 ;
+
+VarDeclTail ::= (VarDeclTailSingle) VarDeclTailItem:V1 {: RESULT=new VarDeclTailSingle(V1); RESULT.setLine(V1left); :}
+              |
+              (VarDeclTailList) VarDeclTail:V1 COMMA VarDeclTailItem:V2 {: RESULT=new VarDeclTailList(V1, V2); RESULT.setLine(V1left); :}
+              ;
+
+VarDeclTailItem ::= (VarDeclTailSimple) IDENT:varName {: RESULT=new VarDeclTailSimple(varName); RESULT.setLine(varNameleft); :}
+                  |
+                  (VarDeclTailArray) IDENT:varName LBRACKET RBRACKET {: RESULT=new VarDeclTailArray(varName); RESULT.setLine(varNameleft); :}
+                  ;
+
+EnumItemList ::= (EnumItemListSingle) EnumItem:E1 {: RESULT=new EnumItemListSingle(E1); RESULT.setLine(E1left); :}
+               |
+               (EnumItemListMany) EnumItemList:E1 COMMA EnumItem:E2 {: RESULT=new EnumItemListMany(E1, E2); RESULT.setLine(E1left); :}
+               ;
+
+EnumItem ::= (EnumItemSimple) IDENT:itemName {: RESULT=new EnumItemSimple(itemName); RESULT.setLine(itemNameleft); :}
+           |
+           (EnumItemAssigned) IDENT:itemName EQUAL NUMBER:value {: RESULT=new EnumItemAssigned(itemName, value); RESULT.setLine(itemNameleft); :}
+           ;
 
 Type ::= (ActualType) IDENT:I1 {: RESULT=new ActualType(I1); RESULT.setLine(I1left); :}
        | (VoidType)VOID {: RESULT=new VoidType(); :}
