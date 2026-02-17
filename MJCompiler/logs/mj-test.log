@@ -1,38 +1,70 @@
-INFO  21:36:46,094 - Compiling source file: C:\Data\Skola\Semestar 7\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\TEST1—BasicArithmetic+Unary.mj
-INFO  21:36:46,122 - #2 program
-INFO  21:36:46,122 - #39 Test1
-INFO  21:36:46,123 - #39 int
-INFO  21:36:46,123 - #39 a
-INFO  21:36:46,124 - #5 ;
-INFO  21:36:46,124 - #3 {
-INFO  21:36:46,124 - #35 void
-INFO  21:36:46,125 - #39 main
-INFO  21:36:46,125 - #6 (
-INFO  21:36:46,126 - #7 )
-INFO  21:36:46,126 - #3 {
-INFO  21:36:46,126 - #39 a
-INFO  21:36:46,127 - #23 =
-INFO  21:36:46,127 - #13 -
-INFO  21:36:46,127 - #36 5
-INFO  21:36:46,127 - #5 ;
-INFO  21:36:46,127 - #39 a
-INFO  21:36:46,128 - #23 =
-INFO  21:36:46,128 - #13 -
-INFO  21:36:46,128 - #6 (
-INFO  21:36:46,128 - #36 3
-INFO  21:36:46,128 - #12 +
-INFO  21:36:46,128 - #36 2
-INFO  21:36:46,129 - #7 )
-INFO  21:36:46,129 - #5 ;
-INFO  21:36:46,129 - #39 a
-INFO  21:36:46,129 - #23 =
-INFO  21:36:46,129 - #36 3
-INFO  21:36:46,129 - #12 +
-INFO  21:36:46,129 - #36 4
-INFO  21:36:46,129 - #14 *
-INFO  21:36:46,129 - #36 2
-INFO  21:36:46,130 - #5 ;
-INFO  21:36:46,130 - #4 }
-INFO  21:36:46,130 - #4 }
-INFO  21:36:46,135 - Deklarisana promenljiva a na liniji 2
-INFO  21:36:46,135 - Obradjuje se funkcija main na liniji 4
+INFO  00:16:41,447 - Compiling source file: C:\Users\necan\git\repository\MJCompiler\test\program.mj
+INFO  00:16:41,482 - #2 program
+INFO  00:16:41,483 - #39 MJProgram
+INFO  00:16:41,483 - #39 int
+INFO  00:16:41,484 - #39 x
+INFO  00:16:41,484 - #5 ;
+INFO  00:16:41,484 - #39 int
+INFO  00:16:41,484 - #39 y
+INFO  00:16:41,484 - #5 ;
+INFO  00:16:41,484 - #3 {
+INFO  00:16:41,484 - #39 int
+INFO  00:16:41,485 - #39 k
+INFO  00:16:41,485 - #6 (
+INFO  00:16:41,485 - #7 )
+INFO  00:16:41,486 - #39 int
+INFO  00:16:41,486 - #39 c
+INFO  00:16:41,486 - #5 ;
+INFO  00:16:41,486 - #3 {
+INFO  00:16:41,486 - #39 c
+INFO  00:16:41,487 - #23 =
+INFO  00:16:41,487 - #36 1
+INFO  00:16:41,487 - #5 ;
+INFO  00:16:41,488 - #11 return
+INFO  00:16:41,488 - #39 c
+INFO  00:16:41,488 - #12 +
+INFO  00:16:41,488 - #36 2
+INFO  00:16:41,489 - #5 ;
+INFO  00:16:41,489 - #4 }
+INFO  00:16:41,489 - #39 int
+INFO  00:16:41,490 - #39 main
+INFO  00:16:41,490 - #6 (
+INFO  00:16:41,490 - #7 )
+INFO  00:16:41,490 - #3 {
+INFO  00:16:41,490 - #39 y
+INFO  00:16:41,490 - #23 =
+INFO  00:16:41,490 - #36 2
+INFO  00:16:41,490 - #5 ;
+INFO  00:16:41,490 - #39 x
+INFO  00:16:41,490 - #23 =
+INFO  00:16:41,490 - #39 y
+INFO  00:16:41,490 - #12 +
+INFO  00:16:41,491 - #36 2
+INFO  00:16:41,491 - #5 ;
+INFO  00:16:41,491 - #39 y
+INFO  00:16:41,491 - #23 =
+INFO  00:16:41,491 - #39 k
+INFO  00:16:41,491 - #6 (
+INFO  00:16:41,491 - #7 )
+INFO  00:16:41,492 - #12 +
+INFO  00:16:41,492 - #36 3
+INFO  00:16:41,492 - #5 ;
+INFO  00:16:41,492 - #9 print
+INFO  00:16:41,492 - #6 (
+INFO  00:16:41,492 - #39 y
+INFO  00:16:41,492 - #7 )
+INFO  00:16:41,492 - #5 ;
+INFO  00:16:41,492 - #11 return
+INFO  00:16:41,492 - #36 0
+INFO  00:16:41,492 - #5 ;
+INFO  00:16:41,492 - #4 }
+INFO  00:16:41,492 - #4 }
+INFO  00:16:41,499 - Deklarisana promenljiva x na liniji 2
+INFO  00:16:41,499 - Deklarisana promenljiva y na liniji 2
+INFO  00:16:41,499 - Obradjuje se funkcija k na liniji 5
+INFO  00:16:41,499 - Deklarisana promenljiva c na liniji 5
+INFO  00:16:41,499 - Obradjuje se funkcija main na liniji 10
+INFO  00:16:41,500 - Pronadjen poziv funkcije k na liniji 13
+INFO  00:16:41,500 - Print calls = 1
+INFO  00:16:41,500 - Generating bytecode file: C:\Users\necan\git\repository\MJCompiler\test\program.mj
+INFO  00:16:41,504 - Parsiranje uspesno zavrseno!
