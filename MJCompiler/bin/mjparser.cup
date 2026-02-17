@@ -54,7 +54,7 @@ scan with {:
 :}
 
 
-terminal PROG, LBRACE, RBRACE, SEMI, LPAREN, RPAREN, COMMA;
+terminal PROG, CONST, ENUM, LBRACE, RBRACE, SEMI, LPAREN, RPAREN, COMMA;
 terminal PRINT, READ, RETURN;
 terminal PLUS, MINUS, MUL, DIV, MOD;
 terminal GT, GE, LT, LE, EQ, NE;
@@ -74,7 +74,7 @@ terminal Integer BOOLCONST;
 terminal String IDENT ;
 
 
-nonterminal MethodDeclList, VarDecl;
+nonterminal MethodDeclList, VarDecl, VarDeclTail, VarDeclTailItem, EnumItemList, EnumItem;
 nonterminal FormalParamList, FormalParamDecl, FormPars, ActualPars, ActualParamList; 
 nonterminal StatementList, Statement, Addop, Mulop, Relop;
 nonterminal Unmatched, Matched;
@@ -97,12 +97,44 @@ VarDecl ::= (SimpleVarDecl) Type:varType IDENT:varName SEMI
           |
           (ArrayVarDecl) Type:varType IDENT:varName LBRACKET RBRACKET SEMI
           |
+          (MultiVarDecl) Type:varType IDENT:firstName COMMA VarDeclTail SEMI
+          |
+          (MultiArrayVarDecl) Type:varType IDENT:firstName LBRACKET RBRACKET COMMA VarDeclTail SEMI
+          |
+          (ConstDeclNum) CONST Type:constType IDENT:constName EQUAL NUMBER SEMI
+          |
+          (ConstDeclChar) CONST Type:constType IDENT:constName EQUAL CHARCONST SEMI
+          |
+          (ConstDeclBool) CONST Type:constType IDENT:constName EQUAL BOOLCONST SEMI
+          |
+          (EnumDeclStmt) ENUM IDENT:enumName LBRACE EnumItemList RBRACE
+          |
           (ErrVarDeclSemi) Type:errorType error SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ';'."); :}
           |
           (ErrVarDeclComma) Type:errorType error COMMA IDENT:nextVar SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ','."); :}
 ;
+
+VarDeclTail ::= (VarDeclTailSingle) VarDeclTailItem
+              |
+              (VarDeclTailList) VarDeclTail COMMA VarDeclTailItem
+              ;
+
+VarDeclTailItem ::= (VarDeclTailSimple) IDENT:varName
+                  |
+                  (VarDeclTailArray) IDENT:varName LBRACKET RBRACKET
+                  ;
+
+EnumItemList ::= (EnumItemListSingle) EnumItem
+               |
+               (EnumItemListMany) EnumItemList COMMA EnumItem
+               ;
+
+EnumItem ::= (EnumItemSimple) IDENT:itemName
+           |
+           (EnumItemAssigned) IDENT:itemName EQUAL NUMBER:value
+           ;
 
 Type ::= (ActualType) IDENT
        | (VoidType)VOID
