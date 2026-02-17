@@ -7,12 +7,13 @@ import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
-public class SemanticPass extends VisitorAdaptor {
+public class SemanticAnalyzer extends VisitorAdaptor {
 
 	boolean errorDetected = false;
 	int printCallCount = 0;
 	Obj currentMethod = null;
 	boolean returnFound = false;
+	boolean mainFound = false;
 	int nVars;
 
 	public static Obj ternaryCondTmp;
@@ -40,7 +41,20 @@ public class SemanticPass extends VisitorAdaptor {
 		log.info(msg.toString());
 	}
 
+	public void report_symbol_use(String symbolName, Obj symbolObj, SyntaxNode info) {
+		StringBuilder msg = new StringBuilder("Detektovan simbol");
+		int line = (info == null) ? 0 : info.getLine();
+		if (line != 0)
+			msg.append(" na liniji ").append(line);
+		msg.append(": naziv=").append(symbolName);
+		msg.append(", obj=").append(symbolObj);
+		log.info(msg.toString());
+	}
+
 	public void visit(Program program) {
+		if (!mainFound) {
+			report_error("U programu mora postojati void main() bez argumenata", program);
+		}
 		nVars = Tab.currentScope.getnVars();
 		Tab.chainLocalSymbols(program.getProgName().obj);
 		Tab.closeScope();
@@ -193,6 +207,14 @@ public class SemanticPass extends VisitorAdaptor {
 		if (!returnFound && currentMethod != null && currentMethod.getType() != Tab.noType) {
 			report_error("Funkcija " + currentMethod.getName() + " nema return iskaz", methodDecl);
 		}
+		if (currentMethod != null && "main".equals(currentMethod.getName())) {
+			boolean noArgs = methodDecl.getFormPars() instanceof NoFormParam;
+			if (currentMethod.getType() == Tab.noType && noArgs) {
+				mainFound = true;
+			} else {
+				report_error("main mora biti deklarisan kao void main() bez argumenata", methodDecl);
+			}
+		}
 		if (currentMethod != null) {
 			Tab.chainLocalSymbols(currentMethod);
 		}
@@ -207,6 +229,9 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Ime " + designator.getName() + " nije deklarisano", designator);
 		}
 		designator.obj = obj;
+		if (obj != null && obj != Tab.noObj) {
+			report_symbol_use(designator.getName(), obj, designator);
+		}
 	}
 
 	public void visit(ArrayDesignator designator) {
@@ -277,7 +302,7 @@ public class SemanticPass extends VisitorAdaptor {
 			funcCall.struct = Tab.noType;
 			return;
 		}
-		report_info("Pronadjen poziv funkcije " + func.getName(), funcCall);
+		report_symbol_use(func.getName(), func, funcCall);
 		funcCall.struct = func.getType();
 	}
 
@@ -375,7 +400,7 @@ public class SemanticPass extends VisitorAdaptor {
 		if (func == null || func.getKind() != Obj.Meth) {
 			report_error("Ime nije procedura/funkcija", procCall);
 		} else {
-			report_info("Pronadjen poziv funkcije " + func.getName(), procCall);
+			report_symbol_use(func.getName(), func, procCall);
 		}
 	}
 

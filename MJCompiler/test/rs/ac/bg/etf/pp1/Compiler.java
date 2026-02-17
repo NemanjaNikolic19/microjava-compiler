@@ -17,6 +17,10 @@ import rs.etf.pp1.symboltable.Tab;
 
 public class Compiler {
 
+	public static void tsdump() {
+		Tab.dump();
+	}
+
 	static {
 		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
 		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
@@ -46,11 +50,11 @@ public class Compiler {
 	        if (!p.errorDetected) System.out.println(((Program) prog).toString(""));
 	        
 			Tab.init(); // Universe scope
-			SemanticPass semanticCheck = new SemanticPass();
+			SemanticAnalyzer semanticCheck = new SemanticAnalyzer();
 			prog.traverseBottomUp(semanticCheck);
 			
 	        log.info("Print calls = " + semanticCheck.printCallCount);
-	        Tab.dump();
+	        tsdump();
 	        
 	        if (!p.errorDetected && semanticCheck.passed()) {
 	        	File objFile = new File(args[1]);
