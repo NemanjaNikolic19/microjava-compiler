@@ -390,8 +390,55 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
 	public void visit(Assignment assignment) {
 		Obj d = assignment.getDesignator().obj;
+		if (d != null && d != Tab.noObj && d.getKind() != Obj.Var && d.getKind() != Obj.Elem && d.getKind() != Obj.Fld) {
+			report_error("Leva strana dodele mora biti promenljiva, element niza ili polje", assignment);
+			return;
+		}
 		if (d != null && d != Tab.noObj && !assignment.getExpr().struct.assignableTo(d.getType())) {
 			report_error("Nekompatibilni tipovi u dodeli", assignment);
+		}
+	}
+
+	public void visit(IncStmt incStmt) {
+		Obj d = incStmt.getDesignator().obj;
+		if (d == null || d == Tab.noObj) {
+			return;
+		}
+		if (d.getKind() != Obj.Var && d.getKind() != Obj.Elem && d.getKind() != Obj.Fld) {
+			report_error("Operand ++ mora biti promenljiva, element niza ili polje", incStmt);
+			return;
+		}
+		if (d.getType() != Tab.intType) {
+			report_error("Operand ++ mora biti tipa int", incStmt);
+		}
+	}
+
+	public void visit(DecStmt decStmt) {
+		Obj d = decStmt.getDesignator().obj;
+		if (d == null || d == Tab.noObj) {
+			return;
+		}
+		if (d.getKind() != Obj.Var && d.getKind() != Obj.Elem && d.getKind() != Obj.Fld) {
+			report_error("Operand -- mora biti promenljiva, element niza ili polje", decStmt);
+			return;
+		}
+		if (d.getType() != Tab.intType) {
+			report_error("Operand -- mora biti tipa int", decStmt);
+		}
+	}
+
+	public void visit(ReadStmt readStmt) {
+		Obj d = readStmt.getDesignator().obj;
+		if (d == null || d == Tab.noObj) {
+			return;
+		}
+		if (d.getKind() != Obj.Var && d.getKind() != Obj.Elem && d.getKind() != Obj.Fld) {
+			report_error("read argument mora biti promenljiva, element niza ili polje", readStmt);
+			return;
+		}
+		Struct t = d.getType();
+		if (t != Tab.intType && t != Tab.charType && t != boolType) {
+			report_error("read podrzava samo int, char i bool", readStmt);
 		}
 	}
 
@@ -413,6 +460,18 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
 	public void visit(PrintStmt printStmt) {
 		printCallCount++;
+		Struct t = printStmt.getExpr().struct;
+		if (t != Tab.intType && t != Tab.charType && t != boolType) {
+			report_error("print podrzava samo int, char i bool", printStmt);
+		}
+	}
+
+	public void visit(PrintWidthStmt printWidthStmt) {
+		printCallCount++;
+		Struct t = printWidthStmt.getExpr().struct;
+		if (t != Tab.intType && t != Tab.charType && t != boolType) {
+			report_error("print podrzava samo int, char i bool", printWidthStmt);
+		}
 	}
 
 	public boolean passed() {
