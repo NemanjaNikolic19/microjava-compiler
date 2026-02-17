@@ -2,28 +2,7 @@ package rs.ac.bg.etf.pp1;
 
 import rs.ac.bg.etf.pp1.CounterVisitor.FormParamCounter;
 import rs.ac.bg.etf.pp1.CounterVisitor.VarCounter;
-import rs.ac.bg.etf.pp1.ast.AddOperation;
-import rs.ac.bg.etf.pp1.ast.ArrayDesignator;
-import rs.ac.bg.etf.pp1.ast.Assignment;
-import rs.ac.bg.etf.pp1.ast.BoolConst;
-import rs.ac.bg.etf.pp1.ast.CharConst;
-import rs.ac.bg.etf.pp1.ast.DecStmt;
-import rs.ac.bg.etf.pp1.ast.Designator;
-import rs.ac.bg.etf.pp1.ast.FuncCallFactor;
-import rs.ac.bg.etf.pp1.ast.IncStmt;
-import rs.ac.bg.etf.pp1.ast.MethodDecl;
-import rs.ac.bg.etf.pp1.ast.MethodTypeName;
-import rs.ac.bg.etf.pp1.ast.MulOperation;
-import rs.ac.bg.etf.pp1.ast.NumConst;
-import rs.ac.bg.etf.pp1.ast.PrintStmt;
-import rs.ac.bg.etf.pp1.ast.PrintWidthStmt;
-import rs.ac.bg.etf.pp1.ast.ProcCall;
-import rs.ac.bg.etf.pp1.ast.ReadStmt;
-import rs.ac.bg.etf.pp1.ast.ReturnExpr;
-import rs.ac.bg.etf.pp1.ast.ReturnNoExpr;
-import rs.ac.bg.etf.pp1.ast.SyntaxNode;
-import rs.ac.bg.etf.pp1.ast.UnaryMinus;
-import rs.ac.bg.etf.pp1.ast.VisitorAdaptor;
+import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
@@ -93,17 +72,68 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	@Override
+	public void visit(NewArray newArray) {
+		Code.put(Code.newarray);
+		Code.put(newArray.getType().struct == Tab.charType ? 0 : 1);
+	}
+
+	@Override
 	public void visit(Designator designator) {
 		SyntaxNode parent = designator.getParent();
 		if (!(parent instanceof Assignment) && !(parent instanceof ProcCall) && !(parent instanceof FuncCallFactor)
-				&& !(parent instanceof IncStmt) && !(parent instanceof DecStmt) && !(parent instanceof ReadStmt)) {
+				&& !(parent instanceof IncStmt) && !(parent instanceof DecStmt) && !(parent instanceof ReadStmt)
+				&& !(parent instanceof FieldDesignator)) {
 			Code.load(designator.obj);
+		}
+	}
+
+	@Override
+	public void visit(IdentDesignator identDesignator) {
+		SyntaxNode parent = identDesignator.getParent();
+		if (!(parent instanceof Assignment) && !(parent instanceof ProcCall) && !(parent instanceof FuncCallFactor)
+				&& !(parent instanceof IncStmt) && !(parent instanceof DecStmt) && !(parent instanceof ReadStmt)
+				&& !(parent instanceof FieldDesignator)) {
+			Code.load(identDesignator.obj);
+		}
+	}
+
+	@Override
+	public void visit(ArrayDesignator arrayDesignator) {
+		SyntaxNode parent = arrayDesignator.getParent();
+		boolean lvalue = (parent instanceof Assignment && ((Assignment) parent).getDesignator() == arrayDesignator)
+				|| (parent instanceof ReadStmt && ((ReadStmt) parent).getDesignator() == arrayDesignator)
+				|| (parent instanceof IncStmt && ((IncStmt) parent).getDesignator() == arrayDesignator)
+				|| (parent instanceof DecStmt && ((DecStmt) parent).getDesignator() == arrayDesignator);
+		if (!lvalue) {
+			Code.load(arrayDesignator.obj);
+		}
+	}
+
+	@Override
+	public void visit(LengthDesignator lengthDesignator) {
+		Code.put(Code.arraylength);
+	}
+
+	@Override
+	public void visit(FieldDesignator fieldDesignator) {
+		SyntaxNode parent = fieldDesignator.getParent();
+		if (!(parent instanceof Assignment) && !(parent instanceof ProcCall) && !(parent instanceof FuncCallFactor)
+				&& !(parent instanceof IncStmt) && !(parent instanceof DecStmt) && !(parent instanceof ReadStmt)) {
+			Code.load(fieldDesignator.obj);
 		}
 	}
 
 	@Override
 	public void visit(FuncCallFactor funcCall) {
 		Obj functionObj = funcCall.getDesignator().obj;
+		String name = functionObj.getName();
+		if ("ord".equals(name) || "chr".equals(name)) {
+			return;
+		}
+		if ("len".equals(name)) {
+			Code.put(Code.arraylength);
+			return;
+		}
 		int offset = functionObj.getAdr() - Code.pc;
 		Code.put(Code.call);
 		Code.put2(offset);
@@ -112,6 +142,14 @@ public class CodeGenerator extends VisitorAdaptor {
 	@Override
 	public void visit(ProcCall procCall) {
 		Obj functionObj = procCall.getDesignator().obj;
+		String name = functionObj.getName();
+		if ("ord".equals(name) || "chr".equals(name)) {
+			return;
+		}
+		if ("len".equals(name)) {
+			Code.put(Code.arraylength);
+			return;
+		}
 		int offset = functionObj.getAdr() - Code.pc;
 		Code.put(Code.call);
 		Code.put2(offset);
@@ -150,6 +188,9 @@ public class CodeGenerator extends VisitorAdaptor {
 	@Override
 	public void visit(IncStmt incStmt) {
 		Designator d = incStmt.getDesignator();
+		if (d.obj.getKind() == Obj.Elem) {
+			Code.put(Code.dup2);
+		}
 		Code.load(d.obj);
 		Code.loadConst(1);
 		Code.put(Code.add);
@@ -159,6 +200,9 @@ public class CodeGenerator extends VisitorAdaptor {
 	@Override
 	public void visit(DecStmt decStmt) {
 		Designator d = decStmt.getDesignator();
+		if (d.obj.getKind() == Obj.Elem) {
+			Code.put(Code.dup2);
+		}
 		Code.load(d.obj);
 		Code.loadConst(1);
 		Code.put(Code.sub);
@@ -167,7 +211,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	@Override
 	public void visit(AddOperation addExpr) {
-		if (addExpr.getAddop() instanceof rs.ac.bg.etf.pp1.ast.PlusOp) {
+		if (addExpr.getAddop() instanceof PlusOp) {
 			Code.put(Code.add);
 		} else {
 			Code.put(Code.sub);
@@ -176,9 +220,9 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	@Override
 	public void visit(MulOperation mulExpr) {
-		if (mulExpr.getMulop() instanceof rs.ac.bg.etf.pp1.ast.MultOp) {
+		if (mulExpr.getMulop() instanceof MultOp) {
 			Code.put(Code.mul);
-		} else if (mulExpr.getMulop() instanceof rs.ac.bg.etf.pp1.ast.DivOp) {
+		} else if (mulExpr.getMulop() instanceof DivOp) {
 			Code.put(Code.div);
 		} else {
 			Code.put(Code.rem);
@@ -191,7 +235,48 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	@Override
-	public void visit(ArrayDesignator arrayDesignator) {
-		// no-op; index/address handling is emitted by Code.load/store on designator obj context
+	public void visit(RelOperation relOp) {
+		int op = Code.eq;
+		if (relOp.getRelop() instanceof EqOp) {
+			op = Code.eq;
+		} else if (relOp.getRelop() instanceof NeOp) {
+			op = Code.ne;
+		} else if (relOp.getRelop() instanceof GtOp) {
+			op = Code.gt;
+		} else if (relOp.getRelop() instanceof GeOp) {
+			op = Code.ge;
+		} else if (relOp.getRelop() instanceof LtOp) {
+			op = Code.lt;
+		} else if (relOp.getRelop() instanceof LeOp) {
+			op = Code.le;
+		}
+		Code.putFalseJump(op, 0);
+		int falsePatch = Code.pc - 2;
+		Code.loadConst(1);
+		Code.putJump(0);
+		int endPatch = Code.pc - 2;
+		Code.fixup(falsePatch);
+		Code.loadConst(0);
+		Code.fixup(endPatch);
+	}
+
+	@Override
+	public void visit(CondTernary condTernary) {
+		Code.store(SemanticPass.ternaryRightTmp);
+		Code.store(SemanticPass.ternaryLeftTmp);
+		Code.store(SemanticPass.ternaryCondTmp);
+
+		Code.load(SemanticPass.ternaryCondTmp);
+		Code.loadConst(0);
+		Code.putFalseJump(Code.ne, 0);
+		int falsePatch = Code.pc - 2;
+
+		Code.load(SemanticPass.ternaryLeftTmp);
+		Code.putJump(0);
+		int endPatch = Code.pc - 2;
+
+		Code.fixup(falsePatch);
+		Code.load(SemanticPass.ternaryRightTmp);
+		Code.fixup(endPatch);
 	}
 }
