@@ -10,6 +10,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import java_cup.runtime.Symbol;
 import rs.ac.bg.etf.pp1.ast.SyntaxNode;
+import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.util.Log4JUtils;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
@@ -41,6 +42,8 @@ public class Compiler {
 			MJParser p = new MJParser(lexer);
 	        Symbol s = p.parse();  //pocetak parsiranja
 	        SyntaxNode prog = (SyntaxNode)(s.value);
+	        
+	        if (!p.errorDetected) System.out.println(((Program) prog).toString(""));
 	        
 			Tab.init(); // Universe scope
 			SemanticPass semanticCheck = new SemanticPass();
