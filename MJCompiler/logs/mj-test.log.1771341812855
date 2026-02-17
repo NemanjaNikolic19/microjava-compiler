@@ -1,0 +1,406 @@
+INFO  15:46:20,260 - Compiling source file: C:\Users\necan\git\repository\MJCompiler\test\test301.mj
+INFO  15:46:20,298 - #2 program
+INFO  15:46:20,298 - #41 test301
+INFO  15:46:20,298 - #4 enum
+INFO  15:46:20,300 - #41 Broj
+INFO  15:46:20,300 - #5 {
+INFO  15:46:20,300 - #41 NULA
+INFO  15:46:20,300 - #10 ,
+INFO  15:46:20,300 - #41 JEDAN
+INFO  15:46:20,300 - #10 ,
+INFO  15:46:20,300 - #41 PET
+INFO  15:46:20,300 - #25 =
+INFO  15:46:20,300 - #38 5
+INFO  15:46:20,300 - #10 ,
+INFO  15:46:20,300 - #41 DESET
+INFO  15:46:20,301 - #25 =
+INFO  15:46:20,301 - #38 10
+INFO  15:46:20,301 - #6 }
+INFO  15:46:20,301 - #3 const
+INFO  15:46:20,301 - #41 int
+INFO  15:46:20,301 - #41 nula
+INFO  15:46:20,301 - #25 =
+INFO  15:46:20,301 - #38 0
+INFO  15:46:20,301 - #7 ;
+INFO  15:46:20,301 - #3 const
+INFO  15:46:20,301 - #41 int
+INFO  15:46:20,301 - #41 jedan
+INFO  15:46:20,302 - #25 =
+INFO  15:46:20,302 - #38 1
+INFO  15:46:20,302 - #7 ;
+INFO  15:46:20,302 - #3 const
+INFO  15:46:20,302 - #41 int
+INFO  15:46:20,302 - #41 pet
+INFO  15:46:20,302 - #25 =
+INFO  15:46:20,302 - #38 5
+INFO  15:46:20,302 - #7 ;
+INFO  15:46:20,302 - #41 int
+INFO  15:46:20,302 - #41 niz
+INFO  15:46:20,302 - #30 [
+INFO  15:46:20,302 - #31 ]
+INFO  15:46:20,302 - #7 ;
+INFO  15:46:20,302 - #41 char
+INFO  15:46:20,302 - #41 nizch
+INFO  15:46:20,302 - #30 [
+INFO  15:46:20,302 - #31 ]
+INFO  15:46:20,302 - #7 ;
+INFO  15:46:20,303 - #41 int
+INFO  15:46:20,303 - #41 a
+INFO  15:46:20,303 - #7 ;
+INFO  15:46:20,303 - #5 {
+INFO  15:46:20,303 - #37 void
+INFO  15:46:20,304 - #41 main
+INFO  15:46:20,304 - #8 (
+INFO  15:46:20,305 - #9 )
+INFO  15:46:20,305 - #41 int
+INFO  15:46:20,305 - #41 bodovi
+INFO  15:46:20,305 - #7 ;
+INFO  15:46:20,305 - #41 int
+INFO  15:46:20,305 - #41 temp
+INFO  15:46:20,305 - #7 ;
+INFO  15:46:20,305 - #41 Broj
+INFO  15:46:20,306 - #41 nula
+INFO  15:46:20,306 - #10 ,
+INFO  15:46:20,306 - #41 jedan
+INFO  15:46:20,306 - #7 ;
+INFO  15:46:20,307 - #41 bool
+INFO  15:46:20,307 - #41 bt
+INFO  15:46:20,307 - #7 ;
+INFO  15:46:20,307 - #5 {
+INFO  15:46:20,307 - #41 nula
+INFO  15:46:20,307 - #25 =
+INFO  15:46:20,308 - #41 Broj
+INFO  15:46:20,308 - #33 .
+INFO  15:46:20,308 - #41 NULA
+INFO  15:46:20,308 - #7 ;
+INFO  15:46:20,308 - #41 jedan
+INFO  15:46:20,308 - #25 =
+INFO  15:46:20,308 - #41 Broj
+INFO  15:46:20,308 - #33 .
+INFO  15:46:20,308 - #41 JEDAN
+INFO  15:46:20,308 - #7 ;
+INFO  15:46:20,308 - #41 bodovi
+INFO  15:46:20,308 - #25 =
+INFO  15:46:20,308 - #38 0
+INFO  15:46:20,308 - #7 ;
+INFO  15:46:20,308 - #41 bodovi
+INFO  15:46:20,309 - #26 ++
+INFO  15:46:20,309 - #7 ;
+INFO  15:46:20,309 - #41 bodovi
+INFO  15:46:20,309 - #25 =
+INFO  15:46:20,309 - #41 bodovi
+INFO  15:46:20,309 - #14 +
+INFO  15:46:20,309 - #41 jedan
+INFO  15:46:20,310 - #7 ;
+INFO  15:46:20,310 - #41 bodovi
+INFO  15:46:20,310 - #25 =
+INFO  15:46:20,310 - #41 bodovi
+INFO  15:46:20,310 - #16 *
+INFO  15:46:20,310 - #41 pet
+INFO  15:46:20,311 - #7 ;
+INFO  15:46:20,311 - #41 bodovi
+INFO  15:46:20,311 - #27 --
+INFO  15:46:20,311 - #7 ;
+INFO  15:46:20,311 - #11 print
+INFO  15:46:20,311 - #8 (
+INFO  15:46:20,311 - #41 bodovi
+INFO  15:46:20,311 - #9 )
+INFO  15:46:20,311 - #7 ;
+INFO  15:46:20,311 - #11 print
+INFO  15:46:20,311 - #8 (
+INFO  15:46:20,311 - #41 eol
+INFO  15:46:20,312 - #9 )
+INFO  15:46:20,312 - #7 ;
+INFO  15:46:20,312 - #41 niz
+INFO  15:46:20,312 - #25 =
+INFO  15:46:20,312 - #36 new
+INFO  15:46:20,312 - #41 int
+INFO  15:46:20,312 - #30 [
+INFO  15:46:20,312 - #38 3
+INFO  15:46:20,312 - #31 ]
+INFO  15:46:20,312 - #7 ;
+INFO  15:46:20,312 - #41 niz
+INFO  15:46:20,312 - #30 [
+INFO  15:46:20,312 - #41 nula
+INFO  15:46:20,312 - #31 ]
+INFO  15:46:20,312 - #25 =
+INFO  15:46:20,313 - #38 2
+INFO  15:46:20,313 - #7 ;
+INFO  15:46:20,313 - #41 niz
+INFO  15:46:20,313 - #30 [
+INFO  15:46:20,313 - #41 jedan
+INFO  15:46:20,313 - #31 ]
+INFO  15:46:20,313 - #25 =
+INFO  15:46:20,313 - #38 3
+INFO  15:46:20,313 - #7 ;
+INFO  15:46:20,313 - #41 niz
+INFO  15:46:20,313 - #30 [
+INFO  15:46:20,313 - #41 niz
+INFO  15:46:20,313 - #30 [
+INFO  15:46:20,313 - #41 nula
+INFO  15:46:20,313 - #31 ]
+INFO  15:46:20,313 - #31 ]
+INFO  15:46:20,313 - #25 =
+INFO  15:46:20,313 - #41 niz
+INFO  15:46:20,313 - #30 [
+INFO  15:46:20,313 - #38 1
+INFO  15:46:20,313 - #31 ]
+INFO  15:46:20,314 - #16 *
+INFO  15:46:20,314 - #38 4
+INFO  15:46:20,314 - #7 ;
+INFO  15:46:20,314 - #41 bodovi
+INFO  15:46:20,314 - #25 =
+INFO  15:46:20,314 - #41 niz
+INFO  15:46:20,314 - #30 [
+INFO  15:46:20,314 - #38 2
+INFO  15:46:20,314 - #31 ]
+INFO  15:46:20,314 - #17 /
+INFO  15:46:20,314 - #41 niz
+INFO  15:46:20,315 - #30 [
+INFO  15:46:20,315 - #38 0
+INFO  15:46:20,315 - #31 ]
+INFO  15:46:20,315 - #7 ;
+INFO  15:46:20,315 - #11 print
+INFO  15:46:20,315 - #8 (
+INFO  15:46:20,315 - #41 bodovi
+INFO  15:46:20,315 - #9 )
+INFO  15:46:20,315 - #7 ;
+INFO  15:46:20,315 - #11 print
+INFO  15:46:20,315 - #8 (
+INFO  15:46:20,315 - #41 eol
+INFO  15:46:20,315 - #9 )
+INFO  15:46:20,315 - #7 ;
+INFO  15:46:20,315 - #11 print
+INFO  15:46:20,315 - #8 (
+INFO  15:46:20,315 - #41 niz
+INFO  15:46:20,315 - #30 [
+INFO  15:46:20,315 - #38 2
+INFO  15:46:20,315 - #31 ]
+INFO  15:46:20,315 - #9 )
+INFO  15:46:20,315 - #7 ;
+INFO  15:46:20,315 - #11 print
+INFO  15:46:20,315 - #8 (
+INFO  15:46:20,315 - #41 eol
+INFO  15:46:20,315 - #9 )
+INFO  15:46:20,315 - #7 ;
+INFO  15:46:20,315 - #41 nizch
+INFO  15:46:20,316 - #25 =
+INFO  15:46:20,316 - #36 new
+INFO  15:46:20,316 - #41 char
+INFO  15:46:20,316 - #30 [
+INFO  15:46:20,316 - #38 3
+INFO  15:46:20,316 - #31 ]
+INFO  15:46:20,316 - #7 ;
+INFO  15:46:20,316 - #41 nizch
+INFO  15:46:20,316 - #30 [
+INFO  15:46:20,316 - #38 0
+INFO  15:46:20,316 - #31 ]
+INFO  15:46:20,316 - #25 =
+INFO  15:46:20,316 - #39 a
+INFO  15:46:20,316 - #7 ;
+INFO  15:46:20,316 - #41 nizch
+INFO  15:46:20,316 - #30 [
+INFO  15:46:20,316 - #41 jedan
+INFO  15:46:20,316 - #31 ]
+INFO  15:46:20,316 - #25 =
+INFO  15:46:20,316 - #39 b
+INFO  15:46:20,317 - #7 ;
+INFO  15:46:20,317 - #41 nizch
+INFO  15:46:20,317 - #30 [
+INFO  15:46:20,317 - #41 pet
+INFO  15:46:20,317 - #15 -
+INFO  15:46:20,317 - #38 3
+INFO  15:46:20,318 - #31 ]
+INFO  15:46:20,318 - #25 =
+INFO  15:46:20,318 - #39 c
+INFO  15:46:20,318 - #7 ;
+INFO  15:46:20,318 - #11 print
+INFO  15:46:20,318 - #8 (
+INFO  15:46:20,318 - #41 nizch
+INFO  15:46:20,318 - #30 [
+INFO  15:46:20,318 - #38 1
+INFO  15:46:20,318 - #31 ]
+INFO  15:46:20,318 - #9 )
+INFO  15:46:20,318 - #7 ;
+INFO  15:46:20,318 - #11 print
+INFO  15:46:20,318 - #8 (
+INFO  15:46:20,318 - #41 eol
+INFO  15:46:20,318 - #9 )
+INFO  15:46:20,318 - #7 ;
+INFO  15:46:20,318 - #11 print
+INFO  15:46:20,318 - #8 (
+INFO  15:46:20,318 - #41 nizch
+INFO  15:46:20,318 - #30 [
+INFO  15:46:20,318 - #41 jedan
+INFO  15:46:20,318 - #16 *
+INFO  15:46:20,318 - #38 2
+INFO  15:46:20,318 - #31 ]
+INFO  15:46:20,318 - #9 )
+INFO  15:46:20,318 - #7 ;
+INFO  15:46:20,318 - #11 print
+INFO  15:46:20,318 - #8 (
+INFO  15:46:20,318 - #41 eol
+INFO  15:46:20,318 - #9 )
+INFO  15:46:20,318 - #7 ;
+INFO  15:46:20,318 - #11 print
+INFO  15:46:20,318 - #8 (
+INFO  15:46:20,318 - #41 ord
+INFO  15:46:20,318 - #8 (
+INFO  15:46:20,318 - #41 nizch
+INFO  15:46:20,318 - #30 [
+INFO  15:46:20,318 - #38 0
+INFO  15:46:20,318 - #31 ]
+INFO  15:46:20,319 - #9 )
+INFO  15:46:20,319 - #9 )
+INFO  15:46:20,319 - #7 ;
+INFO  15:46:20,319 - #11 print
+INFO  15:46:20,319 - #8 (
+INFO  15:46:20,319 - #41 nizch
+INFO  15:46:20,319 - #33 .
+INFO  15:46:20,320 - #32 length
+INFO  15:46:20,320 - #9 )
+INFO  15:46:20,320 - #7 ;
+INFO  15:46:20,320 - #11 print
+INFO  15:46:20,320 - #8 (
+INFO  15:46:20,320 - #41 niz
+INFO  15:46:20,320 - #33 .
+INFO  15:46:20,320 - #32 length
+INFO  15:46:20,320 - #9 )
+INFO  15:46:20,320 - #7 ;
+INFO  15:46:20,320 - #41 a
+INFO  15:46:20,320 - #25 =
+INFO  15:46:20,320 - #38 1
+INFO  15:46:20,320 - #7 ;
+INFO  15:46:20,320 - #12 read
+INFO  15:46:20,320 - #8 (
+INFO  15:46:20,320 - #41 bodovi
+INFO  15:46:20,320 - #9 )
+INFO  15:46:20,320 - #7 ;
+INFO  15:46:20,320 - #41 bodovi
+INFO  15:46:20,320 - #25 =
+INFO  15:46:20,320 - #15 -
+INFO  15:46:20,321 - #41 bodovi
+INFO  15:46:20,321 - #14 +
+INFO  15:46:20,321 - #8 (
+INFO  15:46:20,321 - #41 pet
+INFO  15:46:20,321 - #16 *
+INFO  15:46:20,321 - #41 a
+INFO  15:46:20,321 - #17 /
+INFO  15:46:20,321 - #38 2
+INFO  15:46:20,321 - #15 -
+INFO  15:46:20,321 - #41 nula
+INFO  15:46:20,321 - #9 )
+INFO  15:46:20,321 - #16 *
+INFO  15:46:20,321 - #41 bodovi
+INFO  15:46:20,321 - #15 -
+INFO  15:46:20,321 - #8 (
+INFO  15:46:20,321 - #38 3
+INFO  15:46:20,321 - #18 %
+INFO  15:46:20,321 - #38 2
+INFO  15:46:20,322 - #14 +
+INFO  15:46:20,322 - #38 3
+INFO  15:46:20,322 - #16 *
+INFO  15:46:20,322 - #38 2
+INFO  15:46:20,322 - #15 -
+INFO  15:46:20,322 - #38 7
+INFO  15:46:20,322 - #9 )
+INFO  15:46:20,322 - #7 ;
+INFO  15:46:20,322 - #11 print
+INFO  15:46:20,322 - #8 (
+INFO  15:46:20,322 - #41 bodovi
+INFO  15:46:20,322 - #9 )
+INFO  15:46:20,322 - #7 ;
+INFO  15:46:20,322 - #12 read
+INFO  15:46:20,322 - #8 (
+INFO  15:46:20,322 - #41 bodovi
+INFO  15:46:20,322 - #9 )
+INFO  15:46:20,322 - #7 ;
+INFO  15:46:20,322 - #41 bt
+INFO  15:46:20,322 - #25 =
+INFO  15:46:20,322 - #40 1
+INFO  15:46:20,322 - #7 ;
+INFO  15:46:20,322 - #11 print
+INFO  15:46:20,322 - #8 (
+INFO  15:46:20,322 - #41 bt
+INFO  15:46:20,322 - #28 ?
+INFO  15:46:20,322 - #41 bodovi
+INFO  15:46:20,322 - #29 :
+INFO  15:46:20,322 - #41 bodovi
+INFO  15:46:20,322 - #14 +
+INFO  15:46:20,322 - #38 10
+INFO  15:46:20,322 - #9 )
+INFO  15:46:20,322 - #7 ;
+INFO  15:46:20,323 - #11 print
+INFO  15:46:20,323 - #8 (
+INFO  15:46:20,323 - #40 0
+INFO  15:46:20,323 - #28 ?
+INFO  15:46:20,323 - #41 bodovi
+INFO  15:46:20,323 - #14 +
+INFO  15:46:20,323 - #38 20
+INFO  15:46:20,323 - #29 :
+INFO  15:46:20,323 - #41 bodovi
+INFO  15:46:20,323 - #14 +
+INFO  15:46:20,323 - #38 30
+INFO  15:46:20,323 - #9 )
+INFO  15:46:20,323 - #7 ;
+INFO  15:46:20,323 - #11 print
+INFO  15:46:20,323 - #8 (
+INFO  15:46:20,323 - #41 bodovi
+INFO  15:46:20,323 - #19 >
+INFO  15:46:20,323 - #38 10
+INFO  15:46:20,324 - #28 ?
+INFO  15:46:20,324 - #39 +
+INFO  15:46:20,324 - #29 :
+INFO  15:46:20,324 - #39 -
+INFO  15:46:20,324 - #9 )
+INFO  15:46:20,324 - #7 ;
+INFO  15:46:20,324 - #6 }
+INFO  15:46:20,324 - #6 }
+INFO  15:46:20,330 - Deklarisana nizovna promenljiva niz na liniji 11
+INFO  15:46:20,330 - Deklarisana nizovna promenljiva nizch na liniji 12
+INFO  15:46:20,330 - Deklarisana promenljiva a na liniji 14
+INFO  15:46:20,330 - Obradjuje se funkcija main na liniji 17
+INFO  15:46:20,330 - Deklarisana promenljiva bodovi na liniji 18
+INFO  15:46:20,330 - Deklarisana promenljiva temp na liniji 19
+ERROR 15:46:20,330 - Nije pronadjen tip Broj u tabeli simbola na liniji 20
+ERROR 15:46:20,330 - Nije pronadjen tip bool u tabeli simbola na liniji 21
+INFO  15:46:20,330 - Deklarisana promenljiva bt na liniji 21
+ERROR 15:46:20,330 - Ime nula nije deklarisano na liniji 23
+ERROR 15:46:20,330 - Ime Broj nije deklarisano na liniji 23
+ERROR 15:46:20,330 - Pristup polju nije podrzan za nivo A na liniji 23
+ERROR 15:46:20,330 - Ime jedan nije deklarisano na liniji 24
+ERROR 15:46:20,330 - Ime Broj nije deklarisano na liniji 24
+ERROR 15:46:20,330 - Pristup polju nije podrzan za nivo A na liniji 24
+ERROR 15:46:20,330 - Ime jedan nije deklarisano na liniji 27
+ERROR 15:46:20,330 - Nekompatibilni tipovi u add izrazu na liniji 27
+ERROR 15:46:20,330 - Nekompatibilni tipovi u dodeli na liniji 27
+ERROR 15:46:20,330 - Ime pet nije deklarisano na liniji 28
+ERROR 15:46:20,330 - Nekompatibilni tipovi u mul izrazu na liniji 28
+ERROR 15:46:20,330 - Nekompatibilni tipovi u dodeli na liniji 28
+ERROR 15:46:20,330 - Ime nula nije deklarisano na liniji 34
+ERROR 15:46:20,330 - Indeks niza mora biti int na liniji 34
+ERROR 15:46:20,330 - Ime jedan nije deklarisano na liniji 35
+ERROR 15:46:20,330 - Indeks niza mora biti int na liniji 35
+ERROR 15:46:20,330 - Ime nula nije deklarisano na liniji 36
+ERROR 15:46:20,330 - Indeks niza mora biti int na liniji 36
+ERROR 15:46:20,330 - Ime jedan nije deklarisano na liniji 45
+ERROR 15:46:20,330 - Indeks niza mora biti int na liniji 45
+ERROR 15:46:20,330 - Ime pet nije deklarisano na liniji 46
+ERROR 15:46:20,330 - Nekompatibilni tipovi u add izrazu na liniji 46
+ERROR 15:46:20,330 - Indeks niza mora biti int na liniji 46
+ERROR 15:46:20,330 - Ime jedan nije deklarisano na liniji 49
+ERROR 15:46:20,330 - Nekompatibilni tipovi u mul izrazu na liniji 49
+ERROR 15:46:20,330 - Indeks niza mora biti int na liniji 49
+INFO  15:46:20,330 - Pronadjen poziv funkcije ord na liniji 51
+ERROR 15:46:20,331 - Ime pet nije deklarisano na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u mul izrazu na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u mul izrazu na liniji 58
+ERROR 15:46:20,331 - Ime nula nije deklarisano na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u add izrazu na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u mul izrazu na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u add izrazu na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u add izrazu na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u dodeli na liniji 58
+ERROR 15:46:20,331 - Nekompatibilni tipovi u dodeli na liniji 62
+INFO  15:46:20,331 - Print calls = 17
+ERROR 15:46:20,331 - Parsiranje NIJE uspesno zavrseno!
