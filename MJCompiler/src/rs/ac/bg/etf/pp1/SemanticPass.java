@@ -2,41 +2,7 @@ package rs.ac.bg.etf.pp1;
 
 import org.apache.log4j.Logger;
 
-import rs.ac.bg.etf.pp1.ast.ActualType;
-import rs.ac.bg.etf.pp1.ast.AddOperation;
-import rs.ac.bg.etf.pp1.ast.AddTerm;
-import rs.ac.bg.etf.pp1.ast.ArrayDesignator;
-import rs.ac.bg.etf.pp1.ast.ArrayVarDecl;
-import rs.ac.bg.etf.pp1.ast.Assignment;
-import rs.ac.bg.etf.pp1.ast.BoolConst;
-import rs.ac.bg.etf.pp1.ast.CharConst;
-import rs.ac.bg.etf.pp1.ast.CondExprWrapper;
-import rs.ac.bg.etf.pp1.ast.CondSingle;
-import rs.ac.bg.etf.pp1.ast.CondTernary;
-import rs.ac.bg.etf.pp1.ast.DesignatorFactor;
-import rs.ac.bg.etf.pp1.ast.ExprFactor;
-import rs.ac.bg.etf.pp1.ast.FieldDesignator;
-import rs.ac.bg.etf.pp1.ast.FuncCallFactor;
-import rs.ac.bg.etf.pp1.ast.IdentDesignator;
-import rs.ac.bg.etf.pp1.ast.LengthDesignator;
-import rs.ac.bg.etf.pp1.ast.MethodDecl;
-import rs.ac.bg.etf.pp1.ast.MethodTypeName;
-import rs.ac.bg.etf.pp1.ast.MulOperation;
-import rs.ac.bg.etf.pp1.ast.NewArray;
-import rs.ac.bg.etf.pp1.ast.NumConst;
-import rs.ac.bg.etf.pp1.ast.PrintStmt;
-import rs.ac.bg.etf.pp1.ast.ProcCall;
-import rs.ac.bg.etf.pp1.ast.ProgName;
-import rs.ac.bg.etf.pp1.ast.Program;
-import rs.ac.bg.etf.pp1.ast.RelOperation;
-import rs.ac.bg.etf.pp1.ast.RelSingle;
-import rs.ac.bg.etf.pp1.ast.ReturnExpr;
-import rs.ac.bg.etf.pp1.ast.SimpleVarDecl;
-import rs.ac.bg.etf.pp1.ast.SyntaxNode;
-import rs.ac.bg.etf.pp1.ast.TermFactor;
-import rs.ac.bg.etf.pp1.ast.UnaryMinus;
-import rs.ac.bg.etf.pp1.ast.VoidType;
-import rs.ac.bg.etf.pp1.ast.VisitorAdaptor;
+import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
@@ -49,6 +15,11 @@ public class SemanticPass extends VisitorAdaptor {
 	boolean returnFound = false;
 	int nVars;
 
+	public static Obj ternaryCondTmp;
+	public static Obj ternaryLeftTmp;
+	public static Obj ternaryRightTmp;
+
+	private Struct boolType = Tab.intType;
 
 	Logger log = Logger.getLogger(getClass());
 
@@ -78,6 +49,10 @@ public class SemanticPass extends VisitorAdaptor {
 	public void visit(ProgName progName) {
 		progName.obj = Tab.insert(Obj.Prog, progName.getPName(), Tab.noType);
 		Tab.openScope();
+		Tab.insert(Obj.Type, "bool", boolType);
+		ternaryCondTmp = Tab.insert(Obj.Var, "__ternary_cond", Tab.intType);
+		ternaryLeftTmp = Tab.insert(Obj.Var, "__ternary_left", Tab.intType);
+		ternaryRightTmp = Tab.insert(Obj.Var, "__ternary_right", Tab.intType);
 	}
 
 	public void visit(ActualType type) {
@@ -97,6 +72,69 @@ public class SemanticPass extends VisitorAdaptor {
 		type.struct = Tab.noType;
 	}
 
+	public void visit(ConstDeclNum cnst) {
+		if (cnst.getType().struct != Tab.intType) {
+			report_error("Numericka konstanta mora biti tipa int", cnst);
+			return;
+		}
+		Obj c = Tab.insert(Obj.Con, cnst.getConstName(), Tab.intType);
+		c.setAdr(cnst.getN1());
+	}
+
+	public void visit(ConstDeclChar cnst) {
+		if (cnst.getType().struct != Tab.charType) {
+			report_error("Karakterna konstanta mora biti tipa char", cnst);
+			return;
+		}
+		Obj c = Tab.insert(Obj.Con, cnst.getConstName(), Tab.charType);
+		c.setAdr(cnst.getC1());
+	}
+
+	public void visit(ConstDeclBool cnst) {
+		if (cnst.getType().struct != boolType) {
+			report_error("Bool konstanta mora biti tipa bool", cnst);
+			return;
+		}
+		Obj c = Tab.insert(Obj.Con, cnst.getConstName(), boolType);
+		c.setAdr(cnst.getB1());
+	}
+
+	public void visit(EnumDeclStmt enumDecl) {
+		Obj enumTypeObj = Tab.insert(Obj.Type, enumDecl.getEnumName(), Tab.intType);
+		Tab.openScope();
+		insertEnumItems(enumDecl.getEnumItemList(), 0);
+		Tab.chainLocalSymbols(enumTypeObj);
+		Tab.closeScope();
+	}
+
+	private int insertEnumItems(EnumItemList list, int nextValue) {
+		if (list instanceof EnumItemListSingle) {
+			return insertEnumItem(((EnumItemListSingle) list).getEnumItem(), nextValue);
+		}
+		if (list instanceof EnumItemListMany) {
+			EnumItemListMany many = (EnumItemListMany) list;
+			int afterLeft = insertEnumItems(many.getEnumItemList(), nextValue);
+			return insertEnumItem(many.getEnumItem(), afterLeft);
+		}
+		return nextValue;
+	}
+
+	private int insertEnumItem(EnumItem item, int nextValue) {
+		if (item instanceof EnumItemSimple) {
+			EnumItemSimple simple = (EnumItemSimple) item;
+			Obj c = Tab.insert(Obj.Con, simple.getItemName(), Tab.intType);
+			c.setAdr(nextValue);
+			return nextValue + 1;
+		}
+		if (item instanceof EnumItemAssigned) {
+			EnumItemAssigned assigned = (EnumItemAssigned) item;
+			Obj c = Tab.insert(Obj.Con, assigned.getItemName(), Tab.intType);
+			c.setAdr(assigned.getValue());
+			return assigned.getValue() + 1;
+		}
+		return nextValue;
+	}
+
 	public void visit(SimpleVarDecl varDecl) {
 		report_info("Deklarisana promenljiva " + varDecl.getVarName(), varDecl);
 		Tab.insert(Obj.Var, varDecl.getVarName(), varDecl.getType().struct);
@@ -105,6 +143,42 @@ public class SemanticPass extends VisitorAdaptor {
 	public void visit(ArrayVarDecl varDecl) {
 		report_info("Deklarisana nizovna promenljiva " + varDecl.getVarName(), varDecl);
 		Tab.insert(Obj.Var, varDecl.getVarName(), new Struct(Struct.Array, varDecl.getType().struct));
+	}
+
+	public void visit(MultiVarDecl varDecl) {
+		report_info("Deklarisana promenljiva " + varDecl.getFirstName(), varDecl);
+		Tab.insert(Obj.Var, varDecl.getFirstName(), varDecl.getType().struct);
+		insertVarDeclTail(varDecl.getVarDeclTail(), varDecl.getType().struct);
+	}
+
+	public void visit(MultiArrayVarDecl varDecl) {
+		report_info("Deklarisana nizovna promenljiva " + varDecl.getFirstName(), varDecl);
+		Tab.insert(Obj.Var, varDecl.getFirstName(), new Struct(Struct.Array, varDecl.getType().struct));
+		insertVarDeclTail(varDecl.getVarDeclTail(), varDecl.getType().struct);
+	}
+
+	private void insertVarDeclTail(VarDeclTail tail, Struct baseType) {
+		if (tail instanceof VarDeclTailSingle) {
+			insertVarDeclTailItem(((VarDeclTailSingle) tail).getVarDeclTailItem(), baseType);
+			return;
+		}
+		if (tail instanceof VarDeclTailList) {
+			VarDeclTailList list = (VarDeclTailList) tail;
+			insertVarDeclTail(list.getVarDeclTail(), baseType);
+			insertVarDeclTailItem(list.getVarDeclTailItem(), baseType);
+		}
+	}
+
+	private void insertVarDeclTailItem(VarDeclTailItem item, Struct baseType) {
+		if (item instanceof VarDeclTailSimple) {
+			String name = ((VarDeclTailSimple) item).getVarName();
+			report_info("Deklarisana promenljiva " + name, item);
+			Tab.insert(Obj.Var, name, baseType);
+		} else if (item instanceof VarDeclTailArray) {
+			String name = ((VarDeclTailArray) item).getVarName();
+			report_info("Deklarisana nizovna promenljiva " + name, item);
+			Tab.insert(Obj.Var, name, new Struct(Struct.Array, baseType));
+		}
 	}
 
 	public void visit(MethodTypeName methodTypeName) {
@@ -155,12 +229,29 @@ public class SemanticPass extends VisitorAdaptor {
 			designator.obj = Tab.noObj;
 			return;
 		}
-		designator.obj = new Obj(Obj.Con, "$length", Tab.intType);
+		designator.obj = new Obj(Obj.Elem, "$length", Tab.intType);
 	}
 
 	public void visit(FieldDesignator designator) {
-		report_error("Pristup polju nije podrzan za nivo A", designator);
-		designator.obj = Tab.noObj;
+		Obj base = designator.getDesignator().obj;
+		if (base == null || base == Tab.noObj || base.getKind() != Obj.Type) {
+			report_error("Leva strana pristupa polju mora biti tip (enum)", designator);
+			designator.obj = Tab.noObj;
+			return;
+		}
+		Obj found = null;
+		for (Obj member : base.getLocalSymbols()) {
+			if (designator.getI2().equals(member.getName())) {
+				found = member;
+				break;
+			}
+		}
+		if (found == null) {
+			report_error("Polje " + designator.getI2() + " nije pronadjeno u " + base.getName(), designator);
+			designator.obj = Tab.noObj;
+			return;
+		}
+		designator.obj = found;
 	}
 
 	public void visit(NumConst cnst) {
@@ -172,7 +263,7 @@ public class SemanticPass extends VisitorAdaptor {
 	}
 
 	public void visit(BoolConst cnst) {
-		cnst.struct = Tab.intType;
+		cnst.struct = boolType;
 	}
 
 	public void visit(DesignatorFactor factor) {
@@ -242,7 +333,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	public void visit(RelOperation relExpr) {
 		if (relExpr.getAddExpr().struct.compatibleWith(relExpr.getAddExpr1().struct)) {
-			relExpr.struct = Tab.intType;
+			relExpr.struct = boolType;
 		} else {
 			report_error("Nekompatibilni tipovi u relacionom izrazu", relExpr);
 			relExpr.struct = Tab.noType;
@@ -254,6 +345,10 @@ public class SemanticPass extends VisitorAdaptor {
 	}
 
 	public void visit(CondTernary condExpr) {
+		Struct condType = condExpr.getRelExpr().struct;
+		if (condType != boolType && condType != Tab.intType) {
+			report_error("Uslov ternarnog operatora mora biti bool/int", condExpr);
+		}
 		Struct left = condExpr.getCondExpr().struct;
 		Struct right = condExpr.getCondExpr1().struct;
 		if (left.compatibleWith(right)) {
