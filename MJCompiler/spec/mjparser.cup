@@ -109,10 +109,10 @@ VarDecl ::= (SimpleVarDecl) Type:varType IDENT:varName SEMI
           |
           (EnumDeclStmt) ENUM IDENT:enumName LBRACE EnumItemList RBRACE
           |
-          (ErrVarDeclSemi) Type:errorType error SEMI
+          (ErrVarDeclSemi) Type IDENT error SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ';'."); :}
           |
-          (ErrVarDeclComma) Type:errorType error COMMA IDENT:nextVar SEMI
+          (ErrVarDeclComma) Type IDENT error COMMA IDENT:nextVar SEMI
           {: parser.log.debug("Uspesan oporavak od greske pri definiciji globalne promenljive do ','."); :}
 ;
 
