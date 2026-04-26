@@ -3,6 +3,7 @@
 ## Overview
 
 This project is a compiler for a MicroJava-like programming language, implemented in Java.
+The current implementation corresponds to **Level A** of the project specification, covering the core compiler pipeline without advanced extensions.
 
 It covers the main phases of a classical compiler pipeline:
 
